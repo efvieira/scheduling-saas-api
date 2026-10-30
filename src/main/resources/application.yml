@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: scheduling-saas
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/agenda}
+    username: ${DB_USER:agenda}
+    password: ${DB_PASSWORD:agenda}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  mvc:
+    problemdetails:
+      enabled: true
+
+auth:
+  jwt:
+    secret: ${JWT_SECRET:dev-only-secret-with-at-least-32-bytes!!}
+    ttl: PT8H
+    issuer: scheduling-saas
+
+demo:
+  enabled: ${DEMO_ENABLED:true}
+
+pix:
+  webhook-token: ${PIX_WEBHOOK_TOKEN:dev-only-token}
+  # gateway:
+  #   url: http://pix-payment-gateway:8080
+
+# whatsapp:
+#   token: ${WHATSAPP_TOKEN}
+#   phone-number-id: ${WHATSAPP_PHONE_NUMBER_ID}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
